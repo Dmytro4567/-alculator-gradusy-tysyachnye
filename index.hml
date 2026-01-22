@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Калькулятор тысячных</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+    .box {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+    }
+    input {
+      width: 80px;
+      margin: 5px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 5px 10px;
+    }
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Калькулятор перевода углов</h2>
+
+  <!-- Градусы → тысячные -->
+  <div class="box">
+    <h3>Градусы → тысячные</h3>
+    <label>Градусы:
+      <input type="number" id="deg" value="0">
+    </label><br>
+    <label>Минуты:
+      <input type="number" id="min" value="0">
+    </label><br>
+    <button onclick="toThousands()">Перевести</button>
+    <div class="result" id="resThousands"></div>
+  </div>
+
+  <!-- Тысячные → градусы -->
+  <div class="box">
+    <h3>Тысячные → градусы</h3>
+    <label>Тысячные:
+      <input type="number" id="thousand" value="0">
+    </label><br>
+    <button onclick="toDegrees()">Перевести</button>
+    <div class="result" id="resDegrees"></div>
+  </div>
+
+  <script>
+    // Градусы + минуты → тысячные (6000)
+    function toThousands() {
+      const deg = Number(document.getElementById("deg").value);
+      const min = Number(document.getElementById("min").value);
+
+      const decimalDegrees = deg + min / 60;
+      const thousands = decimalDegrees * (6000 / 360);
+
+      document.getElementById("resThousands").innerText =
+        "Результат: " + thousands.toFixed(1) + " тысячных";
+    }
+
+    // Тысячные → градусы + минуты
+    function toDegrees() {
+      const thousand = Number(document.getElementById("thousand").value);
+
+      const decimalDegrees = thousand * (360 / 6000);
+      const degrees = Math.floor(decimalDegrees);
+      const minutes = Math.round((decimalDegrees - degrees) * 60);
+
+      document.getElementById("resDegrees").innerText =
+        `Результат: ${degrees}° ${minutes}′`;
+    }
+  </script>
+
+</body>
+</html>
